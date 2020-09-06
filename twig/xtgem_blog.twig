@@ -1,0 +1,386 @@
+<div class="xt_blog_parent" id="xt_blog">
+{% if view == 'entries_list' %}
+
+    {% block entries_list_tag %}
+        {% if data.tag %}
+            <div class="xt_container"><h2 class="xt_blog_title">{{ data.translations.t_showing_tagged_posts }} {{ data.tag }}</h2></div>
+        {% endif %}
+    {% endblock %}
+
+    <div class="xt_list">
+        {% block entries_list %}
+            <div class="xt_blog_post_list">
+                {% for entry in data.entries %}
+                    <div class="xt_item">
+                        <span>
+                            <a class="xt_blog_title_link" href="{{ entry.url }}">
+                                <span class="xt_heading">{{ entry.title }}{% if data.entry_list_show_time %} <span class="xt_blog_entry_time">{{entry.created}}</span>{% endif %}</span>
+                                {% if entry.comments_count %}
+                                    <span class="xt_blog_comments_number">( {{ entry.comments_count }} )</span>
+                                {% endif %}
+                                <span class="arrow"></span>
+                            </a>
+                            {% if data.display_type != 'header' and entry.content %}
+                                <span class="xt_description">{{ entry.content|raw }}</span>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endblock %}
+    </div>
+
+    {% block entries_list_footer %}
+        {% if data.back_url %}
+            <div class="xt_container"><a href="{{ data.back_url }}" class="xt_blog_back_to_posts xt_link xt_button">{{ data.translations.t_back_to_posts }}</a></div>
+        {% endif %}
+        {{ data.pagination_html|raw }}
+    {% endblock %}
+
+    {% block entries_list_searchbox %}
+        {% if data.searchbox %}
+            <div class="xt_container xt_blog_search">
+                <form action="{{ data.searchbox.url }}" method="get" class="xt_blog_search_form">
+
+                    {% for key, value in data.searchbox.params %}
+                        {% if value %}
+                            <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                        {% endif %}
+                    {% endfor %}
+
+                    <span class="xt_input"><input type="text" name="__xtblog_search" value="{{ data.searchbox.phrase }}"></span>
+                    <span class="xt_submit"><input class="xt_button" type="submit" value="{{ data.translations.t_search }}" /></span>
+                </form>
+            </div>
+        {% endif %}
+    {% endblock %}
+
+{% elseif view == 'entry' %}
+
+    <div class="xt_blog">
+
+        {% block entry_tags %}
+            {% if not data.entry.in_comments_thread %}
+                {% if data.hide_tags == false and data.post.tags %}
+                    <div class="xt_tags">
+                        {{ data.translations.t_tags }}
+                        {% for tag in data.post.tags %}
+                            <a href="{{ tag.url }}">{{ tag.name }}</a>{% if loop.last == false %}, {% endif %}
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endblock %}
+
+        {% block entry_post %}
+            <h2 class="xt_blog_title">{{ data.post.title }}</h2>
+            {% if not data.entry.in_comments_thread %}
+                {% if data.post.subtitle %}
+                    <div class="xt_blog_subtitle">{{ data.post.subtitle }}</div>
+                {% endif %}
+                <div class="xt_blog_content xt_text normal">{{ data.post.content|raw }}</div>
+
+                <div class="xt_blog_entry_date xt_text small">{{ data.translations.t_created }} {{ data.post.date }}</div>
+
+                {% if data.post.feed_data %}
+                    {% if data.device == 'mobile' %}
+                        <div class="xt_blog_social">
+                            <img src="http://xtgem.com/images/icons/mobile2/rateup.png" />{{ data.post.feed_data.ratings_up }} {% if data.post.feed_data.has_rated %}<a class="rateup rated_up" href="{{ data.post.feed_data.rate_url }}">Unrate</a>{% else %}<a class="rateup" href="{{ data.post.feed_data.rate_url }}">Rate up</a>{% endif %}
+                            {% if data.post.feed_data.has_starred %}<a class="star starred" href="{{ data.post.feed_data.star_url }}"><img src="http://xtgem.com/images/icons/mobile2/star.png" />Unstar</a>{% else %}<a class="star" href="{{ data.post.feed_data.star_url }}"><img src="http://xtgem.com/images/icons/mobile2/unstar.png" />Star</a>{% endif %}
+                            {% if data.post.feed_data.is_featured %}<br /> This post is featured on <a href="http://xtgem.com/feed">XtGem</a>{% endif %}
+                        </div>
+                    {% else %}
+                        <div class="xt_blog_social">
+                            {% if data.post.feed_data.has_rated %}<a class="rate_up rated_up" href="{{ data.post.feed_data.rate_url }}">{{ data.post.feed_data.ratings_up }} <span class="icon-arrow-up"><!-- --></span></a>{% else %}<a class="rate_up" href="{{ data.post.feed_data.rate_url }}">{{ data.post.feed_data.ratings_up }} <span class="icon-arrow-up"><!-- --></span></a>{% endif %}
+                            {% if data.post.feed_data.has_starred %}<a class="star starred" href="{{ data.post.feed_data.star_url }}">Unstar <span class="icon-star"><!-- --></span></a>{% else %}<a class="star" href="{{ data.post.feed_data.star_url }}">Star <span class="icon-star"><!-- --></span></a>{% endif %}
+                            {% if data.post.feed_data.is_featured %}<div class="featured">This post is featured on <a href="http://xtgem.com/feed">XtGem</a></div>{% endif %}
+                        </div>
+                    {% endif %}
+                {% endif %}
+
+                    {% if data.social_share_enabled %}
+                        <div class="xt_social_shares">
+                            <a
+                                title="Share on facebook"
+                                href="http://www.facebook.com/sharer.php?u={{data.post.url}}"
+                                class="xt_fb_share"
+                                target="_blank"
+                                onclick="window.open('https://www.facebook.com/sharer/sharer.php?u='+encodeURIComponent('{{data.post.url}}'), 'facebook-share-dialog', 'width=600,height=400');return false;"
+                               >
+                                {% if data.device == 'mobile' %}
+                                    <img height="16px" width="16px" src="http://xtgem.com/images/facebook.png" alt="Share on facebook">
+                                {% else %}
+                                    <span class="icon-fb"><!-- --></span>
+                                {% endif %}
+                            </a>
+                            <a
+                                title="Share on twitter"
+                                href="http://twitter.com/home?status={{data.post.url}}"
+                                class="xt_tw_share"
+                                target="_blank"
+                                onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                               >
+                                {% if data.device == 'mobile' %}
+                                    <img height="16px" width="16px" src="http://xtgem.com/images/twitter.png" alt="Share on twitter">
+                                {% else %}
+                                    <span class="icon-tw"><!-- --></span>
+                                {% endif %}
+                            </a>
+                            <a
+                                title="Share on Google+"
+                                href="https://plus.google.com/share?url={{data.post.url}}"
+                                class="xt_gp_share"
+                                target="_blank"
+                                onclick="window.open(this.href, '', 'menubar=no,toolbar=no,resizable=yes,scrollbars=yes,height=600,width=600');return false;"
+                               >
+                                {% if data.device == 'mobile' %}
+                                    <img height="16px" width="16px" src="http://xtgem.com/images/google_plus.png" alt="Share on google+">
+                                {% else %}
+                                    <span class="icon-gp"><!-- --></span>
+                                {% endif %}
+                            </a>
+                            <a
+                                title="Share via mail"
+                                href="mailto:?subject=Have a look&body={{data.post.url}}"
+                                class="xt_mail_share"
+                                target="_blank"
+                               >
+                                {% if data.device == 'mobile' %}
+                                    <img height="16px" width="16px" src="http://xtgem.com/images/email.png" alt="Share via mail">
+                                {% else %}
+                                    <span class="icon-mail"><!-- --></span>
+                                {% endif %}
+                            </a><!--
+                     --></div>
+                    {% endif %}
+
+            {% endif %}
+
+            <a class="xt_blog_back_to_posts xt_link xt_button" href="{{ data.back_url }}">{{ data.translations.t_back_to_posts }}</a>
+        {% endblock %}
+
+        {% block entry_comments_list %}
+            {% if data.post.allow_comments %}
+                {% if data.new_comments_system %}
+                    <div class="xt_blog_comments" id="xt_blog_comments">
+
+                        {% if data.entry.in_comments_thread %}
+
+                            <br /><div><a href="{{ data.entry.comments_thread_all }}" class="xt_button xt_link">&larr; {{ data.translations.t_show_all_comments }}</a></div><br />
+                            {% if data.entry.comments_thread_parent %}
+                                <div><a href="{{ data.entry.comments_thread_parent }}" class="xt_button xt_link">&larr; {{ data.translations.t_see_parent_thread }}</a></div>
+                            {% endif %}
+                        {% endif %}
+
+                        <span class="xt_blog_comments_title">
+                            {% if data.entry.comments %}
+                                {{ data.translations.t_comments }}
+                            {% else %}
+                                {{ data.translations.t_comments_empty }}
+                            {% endif %}
+                        </span>
+                        {% macro comments_list (comments, ctx) %}
+                            {% for comment in comments %}
+                                <div class="xt_blog_comment{% if comment.owner_of_comment %} xt_blog_comment_author_admin{% endif %}">
+                                    <span class="xt_blog_comment_date">[{{ comment.date }}]</span>
+                                    <span class="xt_blog_comment_author">
+                                        {% if comment.author_profile %}
+                                            <a href="{{ comment.author_profile.link }}"><img src="{{ comment.author_profile.avatars[16] }}" style="display:inline">{{ comment.author_profile.name }}</a>
+                                        {% else %}
+                                            {{ comment.nick }}
+                                        {% endif %}:
+                                    </span>
+                                    {% if not ( ctx.data.entry.in_comments_thread and comment.childs and (comment.childs_count > 0) ) %}
+                                        <div class="xt_blog_comment_actions">
+                                            <a href="{{ comment.reply_link }}" class="xt_blog_comment_action_reply">{{ ctx.data.translations.t_reply }}</a>
+                                            {% if ctx.data.is_logged_in and not comment.is_hidden and not data.comments_form.is_maintenance %}
+                                                {% if ctx.data.reported_spam and ctx.data.reported_spam == comment.id %}
+                                                    <span class="xt_blog_comment_action_reported">{{ctx.data.translations.t_reported}}</span>
+                                                {% else %}
+                                                    <a href="{{ comment.spam_link }}" class="xt_blog_comment_action_report_spam">{{ ctx.data.translations.t_report_spam }}</a>
+                                                {% endif %}
+                                            {% elseif not ctx.data.is_logged_in and not comment.is_hidden and not data.comments_form.is_maintenance %}
+                                                <a href="{{ comment.login_link }}" class="xt_blog_comment_action_report_spam">{{ ctx.data.translations.t_report_spam }}</a>
+                                            {% endif %}
+                                            {% if not comment.childs and (comment.childs_count > 0) %}
+                                                <a href="{{ comment.reply_link }}" class="xt_blog_comment_action_reply">{{ ctx.data.translations.t_show_replies }} ({{comment.childs_count}})</a>
+                                            {% endif %}
+                                            {% if comment.show_more %}
+                                                <a href="{{ comment.reply_link }}" class="xt_blog_comment_action_reply">{{ ctx.data.translations.t_show_all_replies }}</a>
+                                            {% endif %}
+                                        </div>
+                                    {% endif %}
+                                    {% if comment.is_hidden %}
+                                        <div class="xt_blog_comment_content">{{ ctx.data.translations.t_hidden_comment }}</div>
+                                    {% else %}
+                                        <div class="xt_blog_comment_content">{{ comment.message|raw }}</div>
+                                    {% endif %}
+
+                                    {% if comment.childs %}
+                                        <div class="xt_reply" style="margin: 5px 6px;">
+                                            {{ _self.comments_list(comment.childs, ctx) }}
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endmacro %}
+                        {{ _self.comments_list(data.entry.comments, _context) }}
+
+                    </div><br />
+                    {{ data.pagination_html|raw }}
+                {% else %}
+                    <div class="xt_blog_comments" id="xt_blog_comments">
+                        <span class="xt_blog_comments_title">{{ data.translations.t_comments }}</span>
+
+                        {% for comment in data.entry.comments %}
+                            <div class="xt_blog_comment">
+                                <span class="xt_blog_comment_date">[{{ comment.date }}]</span>
+                                <span class="xt_blog_comment_author">{{ comment.nick }}:</span>
+                                <div class="xt_blog_comment_content">{{ comment.message|raw }}</div>
+                            </div>
+                        {% endfor %}
+                    </div><br />
+                    {{ data.pagination_html|raw }}
+                {% endif %}
+            {% endif %}
+        {% endblock %}
+
+        {% block entry_comments_form %}
+            {% if data.comments_form.is_maintenance %}
+                {{ data.comments_form.maintenante_markup|raw }}
+            {% elseif data.is_logged_in and data.new_comments_system and not data.community_name %}
+                <div class="xt_blog_write_a_comment">
+                    <span class="xt_blog_write_a_comment_title">{{ data.translations.t_provide_community_name }}</span>
+                    <form action="{{ data.community_name_submit_url }}" method="post" id="xt_blog_comment_form">
+                        {% if data.entry.in_comments_thread %}
+                            <input type="hidden" name="__xtblog_comment_thread_id" value="{{ data.entry.in_comments_thread }}" />
+                        {% endif %}
+                        <div class="xt_input">
+                            <input type="text" name="community_name" value="{{data.community_name_tmp}}" /><br />
+                        </div>
+                        <div class="xt_submit">
+                            <input class="xt_button" type="submit" value="{{ data.translations.t_submit }}" />
+                        </div>
+                    </form>
+                </div>
+            {% else %}
+                {% if data.post.allow_comments %}
+                    <div class="xt_blog_write_a_comment">
+                        <span class="xt_blog_write_a_comment_title">{{ data.translations.t_post_a_comment }}</span>
+                        {% if data.comments_form.comments_restriction == "logged_in" and not data.is_logged_in %}
+                            <div>{{ data.translations.t_comments_login_required }}: <a href="{{ data.comments_form.login_link }}"> {{ data.translations.t_login }} </a> | <a href="{{ data.comments_form.signup_link }}"> {{ data.translations.t_signup }} </a></div>
+                        {% elseif data.comments_form.comments_restriction == "logged_in" and data.is_logged_in and not data.is_confirmed_email %}
+                            <div>
+                                <a href="{{ data.confirm_email_link }}?redir={{ data.comments_form.url_encoded }}" class="xt_blog_confirm_email">
+                                    {{ data.translations.t_confirm_email }}
+                                </a>
+                            </div>
+                        {% else %}
+                            <form action="{{ data.comments_form.url }}" method="post" id="xt_blog_comment_form">
+
+                                {% if data.entry.in_comments_thread %}
+                                    <input type="hidden" name="__xtblog_comment_thread_id" value="{{ data.entry.in_comments_thread }}" />
+                                {% endif %}
+
+                                <input type="hidden" name="__xtblog_post" value="Post" />
+                                <input type="hidden" name="__xtx" value="{{ data.comments_form.fields.xtx }}" />
+                                <input type="hidden" name="__xtxs" value="{{ data.comments_form.fields.xtxs }}" />
+                                <input type="text" name="__xtblog_blog" value="" style="display:none" />
+                                <input type="hidden" name="__xtblog_entry" value="{{ data.comments_form.entry_id }}" />
+
+                                {% if data.is_logged_in and data.new_comments_system %}
+                                    <div class="xt_label">
+                                        <label>{{ data.translations.t_posting_as }}: <span class="xtblog_community_name">{{ data.community_name }}</span></label>
+                                    </div>
+                                {% else %}
+                                    {% if data.comments_form.spam_comments_reserved_name and data.new_comments_system %}
+                                        <div>{{ data.translations.t_reserved_name }}</div>
+                                    {% endif %}
+                                    {% if data.comments_form.poster %}
+                                        <input type="hidden" name="__xtblog_nick" value="{{ data.comments_form.poster }}" />
+                                    {% else %}
+                                        <div class="xt_label">
+                                            <label>{{ data.translations.t_name }} </label>
+                                        </div>
+                                        <div class="xt_input">
+                                            <input type="text" name="__xtblog_nick" value="{{ data.comments_form.spam_comments_nick }}" /><br />
+                                        </div>
+                                    {% endif %}
+                                {% endif %}
+                                {% if data.comments_form.comments_restriction == "email_required" and not data.is_logged_in %}
+
+                                    <div class="xt_label">
+                                        <label>{{ data.translations.t_email }} </label>
+                                    </div>
+                                    <div class="xt_input">
+                                        <input type="text" name="__xtblog_email" value="{{ data.comments_form.spam_comments_email }}" /><br />
+                                    </div>
+                                {% endif %}
+
+                                <div class="xt_label">
+                                    <label>{{ data.translations.t_comment }} </label>
+                                </div>
+                                <div class="xt_textarea">
+                                    <textarea id="xtblog_comment_msg" name="__xtblog_msg">{{ data.comments_form.spam_comments_msg }}</textarea>
+                                </div>
+
+                                {% if data.comments_form.spam_comments %}
+                                    Please enter the text you can see on the image below: <br />
+                                    <input type="hidden" name="hash" value="{{ data.comments_form.spam_hash }}" />
+                                    <img src="{{ data.comments_form.spam_captcha_url }}" alt="" /><br />
+                                    <div class="xt_label">
+                                        <label>Code: </label>
+                                    </div>
+                                    <div class="xt_input">
+                                        <input type="text" name="code" />
+                                    </div><br />
+                                {% endif %}
+
+                                <div class="xt_submit">
+                                    <input class="xt_button" type="submit" value="{{ data.translations.t_post }}" />
+                                </div>
+                            </form>
+                        {% endif %}
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endblock %}
+    </div>
+{% elseif view == 'no_contents' %}
+    {% block no_contents %}
+        {% if data.searchbox.phrase %}
+            <div class="xt_blog xt_list">{{ data.translations.t_no_search_results_found }}</div>
+        {% else %}
+            <div class="xt_blog xt_list">{{ data.translations.t_no_entries_found }}</div>
+        {% endif %}
+    {% endblock %}
+
+    {% block no_contents_searchbox %}
+        {% if data.searchbox %}
+            <div class="xt_container xt_blog_search">
+                <form action="{{ data.searchbox.url }}" method="get" class="xt_blog_search_form">
+
+                    {% for key, value in data.searchbox.params %}
+                        {% if value %}
+                            <input type="hidden" name="{{ key }}" value="{{ value }}" />
+                        {% endif %}
+                    {% endfor %}
+
+                    <span class="xt_input"><input type="text" name="__xtblog_search" value="{{ data.searchbox.phrase }}" /></span>
+                    <span class="xt_submit"><input class="xt_button" type="submit" value="{{ data.translations.t_search }}" /></span>
+                </form>
+            </div>
+
+            {% if data.back_url %}
+                <div class="xt_container"><a href="{{ data.back_url }}" class="xt_blog_back_to_posts xt_link xt_button">{{ data.translations.t_back_to_posts }}</a></div>
+            {% endif %}
+            {{ data.pagination_html|raw }}
+
+        {% endif %}
+    {% endblock %}
+{% elseif view == 'no_entry' %}
+    {% block no_entry %}
+        <div class="xt_blog xt_list">No blog entry found</div>
+    {% endblock %}
+{% endif %}
+</div>
