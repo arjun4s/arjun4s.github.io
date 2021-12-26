@@ -1,0 +1,12 @@
+; DO NOT EDIT (unless you know what you are doing)
+;
+; This subdirectory is a git "subrepo", and this file is maintained by the
+; git-subrepo command. See https://github.com/git-commands/git-subrepo#readme
+;
+[subrepo]
+	remote = https://github.com/1j01/jspaint.git
+	branch = master
+	commit = f7fea8b12d7900d4aaffab3a5875849cb499dbf6
+	parent = ef36738f4fe4fdae9489f911b7bf0e377e4bf0b6
+	method = merge
+	cmdver = 0.4.3
