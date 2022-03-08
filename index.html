@@ -64,6 +64,13 @@
 			<aside id="text-2" class="widget widget_text">
       <div class="textwidget"><p style="text-align:center;">
       <a href="https://nusaresearch.net/public/register/register/refUserName/181646" target="_blank" rel="nofollow"><img src="https://3.bp.blogspot.com/-Bp1H0lDpigQ/WBQzU2Wg_mI/AAAAAAAAJH0/6ZX46Dn8WQAjvaGA2MVoNWYYd1i2lnC2QCLcB/s1600/DipoDwijayaS-Banner-nusaresearchnet.png" alt="Ayo Diklik Dan Bergabung Bersama Nusaresearch" width="234" border="0" height="90"/></a>
+	      <br/>
+	      
+	<ul class="posts">
+		{% for post in site.posts %}
+			<li><h2><a href="{{ post.url }}" title="{{ post.title }}" rel="bookmark" target="_blank">{{ post.title }}</a></h2>{% if post.excerpt %}{{ post.excerpt }}{% endif %}</li>
+		{% endfor %}
+	</ul>
 </div>
 		</aside>
 		</div><!-- #secondary -->
