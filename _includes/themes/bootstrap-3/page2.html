@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="id-ID">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>Kodeloka</title>
+		<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+		<style>
+			body {
+				margin: 0;
+				padding: 0;
+				background-image: url(gambarlatarsitus.jpg);
+				background-size: cover;
+				font-family: Segoe UI,sans-serif;
+				font-size: 110%;
+			}
+			h2, h3, h4 {margin: 0;}
+			.img-bunder {border-radius: 50%;}
+			/* https://khang-nd.github.io/7.css/ */
+			.status-bar {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				display: flex;
+				margin: -6px 6px 6px;
+				background: #f0f0f0;
+				border: 1px solid rgba(0,0,0,.6);
+				border-top: 0;
+				box-shadow: 0 .5px 1px .5px #fff;
+			}
+			.status-bar-field {
+				flex-grow: 1;
+				margin: 0;
+				padding: 2px 3px;
+				border-right: 1px solid #cfcfcf;
+			}
+			p {
+				max-width: 50rem;
+				line-height: 1.5;
+			}
+			.status-bar-field:last-child {
+				border-right: 0;
+			}
+		</style>
+	</head>
+	<body>
+		{% include JB/setup %}
+		<h1>Kodeloka</h1>
+		<h2>Arsip Posting</h2>
+		<ul class="posts">{% for post in site.posts %}<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>{% endfor %}</ul>
+		<div class="status-bar">
+			<p class="status-bar-field">2022 <a href="https://arjun4s.github.io/"><img src="favicon.ico" alt="favicon Kodeloka" width="16" height="16"/> Kodeloka</a></p>
+			<p class="status-bar-field"><a href="https://github.com/arjun4s" width="16" height="16"><img src="https://avatars.githubusercontent.com/u/68411288?s=16&v=4" alt="avatar Arjun4s" class="img-bunder"/> Arjun4s</a></p>
+			<p class="status-bar-field"><a href="https://github.com/"><img src="https://github.githubassets.com/favicons/favicon.png?s=16" alt="favicon Github" width="16" height="16"/> Github</a></p>
+		</div><!-- status-bar -->
+	</body>
+</html>
