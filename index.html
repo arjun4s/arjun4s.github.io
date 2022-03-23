@@ -50,6 +50,10 @@
   </head>
   <body>
     <h1>Kodeloka</h1>
+    <h2>Arsip Posting</h2>
+    <ul class="posts">
+        {% for post in site.posts %}<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>{% endfor %}
+    </ul>
     <div class="status-bar">
             <p class="status-bar-field">2022 <a href="https://arjun4s.github.io/"><img src="favicon.ico" alt="favicon Kodeloka" width="16" height="16"/> Kodeloka</a></p>
             <p class="status-bar-field"><a href="https://github.com/arjun4s" width="16" height="16"><img src="https://avatars.githubusercontent.com/u/68411288?s=16&v=4" alt="avatar Arjun4s" class="img-bunder"/> Arjun4s</a></p>
