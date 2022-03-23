@@ -18,7 +18,7 @@
 			h2, h3, h4 {margin: 0;}
 			.img-bunder {border-radius: 50%;}
 			.konten-index {padding:10px;
-			a:link, a:hover, a:visited {text-decoration: none;}
+			a:link, a:hover, a:visited {text-decoration: none;color: #fff;}
 			/* https://khang-nd.github.io/7.css/ */
 			.status-bar {
 				position: absolute;
@@ -41,11 +41,18 @@
 			}
 			p {max-width: 50rem;line-height: 1.5;}
 			.status-bar-field:last-child {border-right: 0;}
+			.status-bar a:link, .status-bar a:hover, .status-bar a:visited {text-decoration: none;color: #000;}
 		</style>
 	</head>
 	<body>
 		<div class="konten-index">
         		{{ content }}
+			<h2>Permainan Favorit</h2>
+			<ul>
+			  <li><a href="https://arjun4s.github.io/sow98/programs/js-solitaire/index.html">Solitaire</a></li>
+			  <li><a href="https://arjun4s.github.io/sow98/programs/minesweeper/index.html">Minesweeper</a></li>
+			  <li><a href="https://arjun4s.github.io/sow98/programs/pinball/space-cadet.html">Pinball</a></li>
+			</ul>
 		</div><!-- konten-index -->
 		<div class="status-bar">
 			<p class="status-bar-field">2022 <a href="https://arjun4s.github.io/"><img src="favicon.ico" alt="favicon Kodeloka" width="16" height="16"/> Kodeloka</a></p>
