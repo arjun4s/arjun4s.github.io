@@ -53,9 +53,9 @@
 		<ul class="posts">{% for post in site.posts %}<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>{% endfor %}</ul>
 		<h2>Permainan Favorit</h2>
 		<ul>
-			<li><a onclick='window.dvminesweeper[&apos;iframe&apos;]()'><img alt='Minesweeper' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhUlEQVQ4jZ2TYQpAIQiDPfqOtpvt/TLMVOQJUVTfmkpmQwDQdD4GAEnSb5FOoBUEcF2uBACIpMxMD0zyAA6TFMmzF+DXRRTJsM8tnG1XcBCoc8+wr80sv347cXBh+4yr4NFBU6xp1IVMOc9QjAXci0w5x9xLkabPVev6dhbK3eX151oV7gN7/S8cyxYRWAAAAABJRU5ErkJggg==' style='width: 32px; height: 32px;' title='Minesweeper'/></a></li>
-			<li><a onclick='window.dvpinball[&apos;iframe&apos;]()'><img alt='Pinball' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAfklEQVQ4jZWSyw3AMAxCGT2rMRm9tJVLiJMi+RKZ51+AoDGGUqTcaEwi2YOqsSbXICmSAqBoduOdKABpHE0Ar9RBXoBXJzmNUiG2C03VXQnwAaf2dx20gG4Hz/sWkK7g5i2gGjyOz7gyR0A94y9z0XKE5Q9MkPRtbaFHUoioC3+TBCKVpEkJAAAAAElFTkSuQmCC' style='width: 32px; height: 32px;' title='Pinball'/></a></li>
-			<li><a onclick='window.dvsolitaire[&apos;iframe&apos;]()'><img alt='Solitaire' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVQ4je2SQQrAIAwEF5Q+2+7T8jN7sTaiSS7iqYE9BJyRaIBFkaxWVucnWETMAPAl3u2hgGT1qsGx4MY1gG+/RdAecpboOa2on/AFOZUO5VR6b8JaoiGdX3Ba4O1BKMC3rlaGegANmnZ42h6lmwAAAABJRU5ErkJggg==' style='width: 32px; height: 32px;' title='Solitaire'/></a></li>
+			<li><a onclick='window.dvminesweeper['iframe']()'><img alt='Minesweeper' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhUlEQVQ4jZ2TYQpAIQiDPfqOtpvt/TLMVOQJUVTfmkpmQwDQdD4GAEnSb5FOoBUEcF2uBACIpMxMD0zyAA6TFMmzF+DXRRTJsM8tnG1XcBCoc8+wr80sv347cXBh+4yr4NFBU6xp1IVMOc9QjAXci0w5x9xLkabPVev6dhbK3eX151oV7gN7/S8cyxYRWAAAAABJRU5ErkJggg==' style='width: 32px; height: 32px;' title='Minesweeper'/></a></li>
+			<li><a onclick='window.dvpinball['iframe']()'><img alt='Pinball' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAfklEQVQ4jZWSyw3AMAxCGT2rMRm9tJVLiJMi+RKZ51+AoDGGUqTcaEwi2YOqsSbXICmSAqBoduOdKABpHE0Ar9RBXoBXJzmNUiG2C03VXQnwAaf2dx20gG4Hz/sWkK7g5i2gGjyOz7gyR0A94y9z0XKE5Q9MkPRtbaFHUoioC3+TBCKVpEkJAAAAAElFTkSuQmCC' style='width: 32px; height: 32px;' title='Pinball'/></a></li>
+			<li><a onclick='window.dvsolitaire['iframe']()'><img alt='Solitaire' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVQ4je2SQQrAIAwEF5Q+2+7T8jN7sTaiSS7iqYE9BJyRaIBFkaxWVucnWETMAPAl3u2hgGT1qsGx4MY1gG+/RdAecpboOa2on/AFOZUO5VR6b8JaoiGdX3Ba4O1BKMC3rlaGegANmnZ42h6lmwAAAABJRU5ErkJggg==' style='width: 32px; height: 32px;' title='Solitaire'/></a></li>
 		</ul>
 		<div class="status-bar">
 			<p class="status-bar-field">2022 <a href="https://arjun4s.github.io/"><img src="favicon.ico" alt="favicon Kodeloka" width="16" height="16"/> Kodeloka</a></p>
@@ -66,26 +66,26 @@
         (function(){
             let winbox;
             window.dvminesweeper = {
-                &quot;iframe&quot;: function(){
-                    new WinBox(&quot;Minesweeper&quot;, {
-                        url: &quot;https://arjun4s.github.io/sow98/programs/minesweeper/index.html&quot;,
-                        class: &quot;iframe&quot;
+                "iframe": function(){
+                    new WinBox("Minesweeper", {
+                        url: "https://arjun4s.github.io/sow98/programs/minesweeper/index.html",
+                        class: "iframe"
                     });
                 },
             };
             window.dvpinball = {
-                &quot;iframe&quot;: function(){
-                    new WinBox(&quot;Pinball&quot;, {
-                        url: &quot;https://arjun4s.github.io/sow98/programs/pinball/space-cadet.html&quot;,
-                        class: &quot;iframe&quot;
+                "iframe": function(){
+                    new WinBox("Pinball", {
+                        url: "https://arjun4s.github.io/sow98/programs/pinball/space-cadet.html",
+                        class: "iframe"
                     });
                 },
             };
             window.dvsolitaire = {
-                &quot;iframe&quot;: function(){
-                    new WinBox(&quot;Solitaire&quot;, {
-                        url: &quot;https://arjun4s.github.io/sow98/programs/js-solitaire/index.html&quot;,
-                        class: &quot;iframe&quot;
+                "iframe": function(){
+                    new WinBox("Solitaire", {
+                        url: "https://arjun4s.github.io/sow98/programs/js-solitaire/index.html",
+                        class: "iframe"
                     });
                 },
             };
@@ -100,32 +100,32 @@
                     winbox.fullscreen();
                 },
                 center: function(){
-                    winbox.move(&quot;center&quot;, &quot;center&quot;);
+                    winbox.move("center", "center");
                 },
                 move: function(){
-                    winbox.move(&quot;right&quot;, &quot;bottom&quot;);
+                    winbox.move("right", "bottom");
                 },
                 resize: function(){
-                    winbox.resize(&quot;50%&quot;, &quot;50%&quot;);
+                    winbox.resize("50%", "50%");
                 },
                 title: function(){
-                    winbox.setTitle(&quot;Title-&quot; + Math.random());
+                    winbox.setTitle("Title-" + Math.random());
                 },
                 color: function(){
                     winbox.setBackground(
-                        &quot;rgb(&quot; + (Math.random() * 255 | 0) + &quot;,&quot; +
-                                 (Math.random() * 255 | 0) + &quot;,&quot; +
-                                 (Math.random() * 255 | 0) + &quot;)&quot;
+                        "rgb(" + (Math.random() * 255 | 0) + "," +
+                                 (Math.random() * 255 | 0) + "," +
+                                 (Math.random() * 255 | 0) + ")"
                     );
                 },
                 modal: function(){
-                    winbox.body.parentNode.classList.toggle(&quot;modal&quot;);
+                    winbox.body.parentNode.classList.toggle("modal");
                 },
                 add: function(){
-                    winbox.addClass(&quot;my-theme&quot;);
+                    winbox.addClass("my-theme");
                 },
                 remove: function(){
-                    winbox.removeClass(&quot;my-theme&quot;);
+                    winbox.removeClass("my-theme");
                 },
                 close: function(){
                     winbox.close();
