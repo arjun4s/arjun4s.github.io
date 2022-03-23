@@ -5,6 +5,10 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 		<title>Kodeloka</title>
 		<link rel="icon" type="image/x-icon" href="favicon.ico"/>
+		<link href='https://arjun4s.github.io/dvr/winbox.min.css' rel='stylesheet'/>
+		<link href='https://arjun4s.github.io/dvr/modern.min.css' rel='stylesheet'/>
+		<link href='https://arjun4s.github.io/dvr/white.min.css' rel='stylesheet'/>
+		<script src='https://arjun4s.github.io/dvr/winbox.min.js'/>
 		<style>
 			body {
 				margin: 0;
@@ -46,10 +50,104 @@
 		<h1>Kodeloka</h1>
 		<h2>Arsip Posting</h2>
 		<ul class="posts">{% for post in site.posts %}<li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ BASE_PATH }}{{ post.url }}">{{ post.title }}</a></li>{% endfor %}</ul>
+		<h2>Permainan Favorit</h2>
+		<ul>
+			<li><a onclick='window.dvminesweeper[&apos;iframe&apos;]()'><img alt='Minesweeper' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAhUlEQVQ4jZ2TYQpAIQiDPfqOtpvt/TLMVOQJUVTfmkpmQwDQdD4GAEnSb5FOoBUEcF2uBACIpMxMD0zyAA6TFMmzF+DXRRTJsM8tnG1XcBCoc8+wr80sv347cXBh+4yr4NFBU6xp1IVMOc9QjAXci0w5x9xLkabPVev6dhbK3eX151oV7gN7/S8cyxYRWAAAAABJRU5ErkJggg==' style='width: 32px; height: 32px;' title='Minesweeper'/></a></li>
+			<li><a onclick='window.dvpinball[&apos;iframe&apos;]()'><img alt='Pinball' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAfklEQVQ4jZWSyw3AMAxCGT2rMRm9tJVLiJMi+RKZ51+AoDGGUqTcaEwi2YOqsSbXICmSAqBoduOdKABpHE0Ar9RBXoBXJzmNUiG2C03VXQnwAaf2dx20gG4Hz/sWkK7g5i2gGjyOz7gyR0A94y9z0XKE5Q9MkPRtbaFHUoioC3+TBCKVpEkJAAAAAElFTkSuQmCC' style='width: 32px; height: 32px;' title='Pinball'/></a></li>
+			<li><a onclick='window.dvsolitaire[&apos;iframe&apos;]()'><img alt='Solitaire' src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAAAZ0lEQVQ4je2SQQrAIAwEF5Q+2+7T8jN7sTaiSS7iqYE9BJyRaIBFkaxWVucnWETMAPAl3u2hgGT1qsGx4MY1gG+/RdAecpboOa2on/AFOZUO5VR6b8JaoiGdX3Ba4O1BKMC3rlaGegANmnZ42h6lmwAAAABJRU5ErkJggg==' style='width: 32px; height: 32px;' title='Solitaire'/></a></li>
+		</ul>
 		<div class="status-bar">
 			<p class="status-bar-field">2022 <a href="https://arjun4s.github.io/"><img src="favicon.ico" alt="favicon Kodeloka" width="16" height="16"/> Kodeloka</a></p>
 			<p class="status-bar-field"><a href="https://github.com/arjun4s" width="16" height="16"><img src="https://avatars.githubusercontent.com/u/68411288?s=16&v=4" alt="avatar Arjun4s" class="img-bunder"/> Arjun4s</a></p>
 			<p class="status-bar-field"><a href="https://github.com/"><img src="https://github.githubassets.com/favicons/favicon.png?s=16" alt="favicon Github" width="16" height="16"/> Github</a></p>
 		</div><!-- status-bar -->
+<script>
+        (function(){
+            let winbox;
+            window.dvminesweeper = {
+                &quot;iframe&quot;: function(){
+                    new WinBox(&quot;Minesweeper&quot;, {
+                        url: &quot;https://arjun4s.github.io/sow98/programs/minesweeper/index.html&quot;,
+                        class: &quot;iframe&quot;
+                    });
+                },
+            };
+            window.dvpinball = {
+                &quot;iframe&quot;: function(){
+                    new WinBox(&quot;Pinball&quot;, {
+                        url: &quot;https://arjun4s.github.io/sow98/programs/pinball/space-cadet.html&quot;,
+                        class: &quot;iframe&quot;
+                    });
+                },
+            };
+            window.dvsolitaire = {
+                &quot;iframe&quot;: function(){
+                    new WinBox(&quot;Solitaire&quot;, {
+                        url: &quot;https://arjun4s.github.io/sow98/programs/js-solitaire/index.html&quot;,
+                        class: &quot;iframe&quot;
+                    });
+                },
+            };
+            window.buttons = {
+                minimize: function(){
+                    winbox.minimize();
+                },
+                maximize: function(){
+                    winbox.maximize();
+                },
+                fullscreen: function(){
+                    winbox.fullscreen();
+                },
+                center: function(){
+                    winbox.move(&quot;center&quot;, &quot;center&quot;);
+                },
+                move: function(){
+                    winbox.move(&quot;right&quot;, &quot;bottom&quot;);
+                },
+                resize: function(){
+                    winbox.resize(&quot;50%&quot;, &quot;50%&quot;);
+                },
+                title: function(){
+                    winbox.setTitle(&quot;Title-&quot; + Math.random());
+                },
+                color: function(){
+                    winbox.setBackground(
+                        &quot;rgb(&quot; + (Math.random() * 255 | 0) + &quot;,&quot; +
+                                 (Math.random() * 255 | 0) + &quot;,&quot; +
+                                 (Math.random() * 255 | 0) + &quot;)&quot;
+                    );
+                },
+                modal: function(){
+                    winbox.body.parentNode.classList.toggle(&quot;modal&quot;);
+                },
+                add: function(){
+                    winbox.addClass(&quot;my-theme&quot;);
+                },
+                remove: function(){
+                    winbox.removeClass(&quot;my-theme&quot;);
+                },
+                close: function(){
+                    winbox.close();
+                },
+                force_close: function () {
+                    winbox.close(true);
+                }
+            };
+        }());
+</script>
+  <script src='https://arjun4s.github.io/dvr/jquery-3.6.0.js'/>
+  <script src='https://arjun4s.github.io/dvr/jquery-ui.js'/>
+  <script>
+  $( function() {
+    $( &quot;#dvblog&quot; ).draggable();
+    $( &quot;#dvcalculator&quot; ).draggable();
+    $( &quot;#dvnotepad&quot; ).draggable();
+    $( &quot;#dvpaint&quot; ).draggable();
+    $( &quot;#dvminesweeper&quot; ).draggable();
+    $( &quot;#dvpinball&quot; ).draggable();
+    $( &quot;#dvsolitaire&quot; ).draggable();
+    $( &quot;#dvwinski&quot; ).draggable();
+  } );
+  </script>
 	</body>
 </html>
